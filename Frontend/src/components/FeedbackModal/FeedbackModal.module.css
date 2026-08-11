@@ -1,0 +1,245 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s;
+    padding: 1rem;
+}
+
+.modal {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 520px;
+    border: 2px solid #1c1917;
+    box-shadow: 6px 6px 0px 0px rgba(28, 25, 23, 0.1);
+    position: relative;
+    max-height: 85vh;
+    overflow-y: auto;
+    font-family: 'Inter', sans-serif;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #ef4444;
+}
+
+.header {
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #e7e5e4;
+    padding-bottom: 1rem;
+}
+
+.title {
+    font-family: 'Merriweather', serif;
+    color: #1c1917;
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.subtitle {
+    margin: 0.35rem 0 0 0;
+    color: #57534e;
+    font-size: 0.9rem;
+}
+
+.section {
+    margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    color: #57534e;
+    margin: 0 0 0.75rem 0;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.fbCard {
+    background: #f5f5f4;
+    border: 1px solid #d6d3d1;
+    border-radius: 6px;
+    padding: 0.85rem 1rem;
+}
+
+.fbCardMine {
+    background: #fefce8;
+    border-color: #fde68a;
+}
+
+.fbCardTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.4rem;
+}
+
+.fbText {
+    margin: 0;
+    color: #1c1917;
+    font-size: 0.95rem;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.fbDate {
+    font-size: 0.75rem;
+    color: #a8a29e;
+}
+
+.starsStatic .starOn, .starsInput .starOn {
+    color: #fdd300;
+}
+
+.starsStatic .starOff, .starsInput .starOff {
+    color: #d6d3d1;
+}
+
+.starsStatic {
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+
+.noRating {
+    font-size: 0.75rem;
+    color: #a8a29e;
+    font-style: italic;
+}
+
+.emptyText {
+    color: #a8a29e;
+    font-style: italic;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.ratingRow {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
+}
+
+.ratingLabel {
+    font-size: 0.85rem;
+    color: #57534e;
+}
+
+.starsInput {
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.clearRating {
+    background: none;
+    border: none;
+    color: #57534e;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-family: 'Inter', sans-serif;
+    padding: 0;
+}
+
+.textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #d6d3d1;
+    border-radius: 6px;
+    padding: 0.75rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    resize: vertical;
+    color: #1c1917;
+}
+
+.textarea:focus {
+    outline: none;
+    border-color: #1c1917;
+}
+
+.error {
+    color: #dc2626;
+    font-size: 0.85rem;
+    margin: 0.5rem 0 0 0;
+}
+
+.submitBtn {
+    margin-top: 0.85rem;
+    background-color: #1c1917;
+    color: #F9F7F2;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: transform 0.1s;
+    font-family: 'Inter', sans-serif;
+}
+
+.submitBtn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 2px 2px 0px 0px rgba(28, 25, 23, 0.2);
+}
+
+.submitBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.loading {
+    text-align: center;
+    color: #57534e;
+    font-style: italic;
+    margin: 1rem 0;
+}
+
+.sentBox {
+    margin-top: 1.25rem;
+    border-top: 1px dashed #d6d3d1;
+    padding-top: 1rem;
+}
+
+.sentLabel {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    color: #57534e;
+    margin-bottom: 0.5rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

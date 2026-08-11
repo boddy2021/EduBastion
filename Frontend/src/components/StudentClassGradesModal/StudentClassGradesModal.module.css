@@ -1,0 +1,166 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s;
+}
+
+.modal {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 450px;
+    border: 2px solid #1c1917;
+    box-shadow: 6px 6px 0px 0px rgba(28, 25, 23, 0.1);
+    position: relative;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #ef4444;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #e7e5e4;
+    padding-bottom: 1rem;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background: #1c1917;
+    color: #F9F7F2;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    font-family: 'Merriweather', serif;
+}
+
+.title {
+    font-family: 'Merriweather', serif;
+    color: #1c1917;
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.subtitle {
+    margin: 0;
+    color: #57534e;
+    font-size: 0.85rem;
+}
+
+.scoreBadge {
+    font-family: 'Inter', sans-serif;
+    background: #fdd300;
+    color: #1c1917;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    border: none;
+    box-shadow: none;
+}
+
+.tableContainer {
+    border: 1px solid #d6d3d1;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Inter', sans-serif;
+}
+
+.table th {
+    text-align: left;
+    padding: 10px 15px;
+    border-bottom: 2px solid #1c1917;
+    background-color: #f5f5f4;
+    color: #1c1917;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.table td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #e7e5e4;
+    font-size: 0.95rem;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.quizTitle {
+    font-weight: 500;
+    color: #1c1917;
+}
+
+.gradeSuccess {
+    font-weight: bold;
+    color: #15803d;
+}
+
+.gradePending {
+    color: #9ca3af;
+    font-style: italic;
+    font-size: 0.85rem;
+}
+
+.loading {
+    text-align: center;
+    color: #57534e;
+    font-style: italic;
+    margin-top: 1rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.flexRow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.alignRight {
+    text-align: right;
+}
+
+.inlineStyle {
+    text-align: center;
+    padding: 1rem;
+}

@@ -1,0 +1,427 @@
+.container {
+    min-height: 100vh;
+    background-color: #F9F7F2;
+    font-family: 'Inter', sans-serif;
+    color: #1c1917;
+}
+
+.mainLayout {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 3rem;
+}
+
+.header {
+    grid-column: 1 / -1;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #1c1917;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.greeting {
+    font-family: 'Merriweather', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    margin: 0;
+    color: #1c1917;
+    letter-spacing: -0.5px;
+}
+
+.date {
+    font-family: 'Inter', sans-serif;
+    color: #57534e;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: #e7e5e4;
+    padding: 6px 12px;
+    border-radius: 4px;
+}
+
+.actionRow {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.actionCard {
+    background: white;
+    border: 1px solid #d6d3d1;
+    border-radius: 6px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    height: 140px;
+    position: relative;
+    overflow: hidden;
+}
+
+.actionCard:hover {
+    border-color: #1c1917;
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0px 0px rgba(28, 25, 23, 0.1);
+}
+
+.actionIcon {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #1c1917;
+}
+
+.iconBox {
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.85rem;
+}
+
+.iconPurple {
+    background: transparent;
+    color: #7c3aed;
+}
+
+.iconBlue {
+    background: transparent;
+    color: #2563eb;
+}
+
+.iconGreen {
+    background: transparent;
+    color: #16a34a;
+}
+
+.iconAmber {
+    background: transparent;
+    color: #d97706;
+}
+
+.iconTeal {
+    background: transparent;
+    color: #0d9488;
+}
+
+.actionTitle {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+    font-family: 'Merriweather', serif;
+}
+
+.actionDesc {
+    font-size: 0.85rem;
+    color: #57534e;
+    line-height: 1.4;
+}
+
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #d6d3d1;
+}
+
+.sectionTitle {
+    font-family: 'Merriweather', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.classCard {
+    background: white;
+    border: 1px solid #d6d3d1;
+    border-radius: 6px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 160px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+    box-shadow: 2px 2px 0px 0px rgba(28, 25, 23, 0.05);
+}
+
+.classCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 0px 0px #1c1917;
+    border-color: #1c1917;
+}
+
+.classCard svg, .classCard i {
+    color: #d97706;
+}
+
+.classTitle {
+    font-family: 'Merriweather', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.codeBadge {
+    font-family: monospace;
+    background: #F9F7F2;
+    padding: 2px 8px;
+    border: 1px solid #d6d3d1;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: #1c1917;
+}
+
+.cardFooter {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px dashed #d6d3d1;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: right;
+    color: #1c1917;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.sidebarCard {
+    background: white;
+    border: 2px solid #1c1917;
+    border-radius: 6px;
+    padding: 1.5rem;
+}
+
+.sidebarTitle {
+    font-family: 'Merriweather', serif;
+    font-size: 1.1rem;
+    margin: 0 0 1rem 0;
+    border-bottom: 2px solid #F9F7F2;
+    padding-bottom: 0.5rem;
+}
+
+.agendaItem {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f5f5f4;
+}
+
+.agendaItem:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.eventActions {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+}
+
+.agendaItem:hover .eventActions {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.agendaDate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #F9F7F2;
+    padding: 4px 8px;
+    border-radius: 4px;
+    min-width: 50px;
+    border: 1px solid #d6d3d1;
+}
+
+.day {
+    font-size: 1.2rem;
+    font-weight: 800;
+    font-family: 'Merriweather', serif;
+}
+
+.month {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.agendaContent {
+    flex: 1;
+}
+
+.agendaTitle {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 2px;
+}
+
+.agendaSub {
+    font-size: 0.8rem;
+    color: #57534e;
+}
+
+@media (max-width: 1000px) {
+    .mainLayout {
+        grid-template-columns: 1fr;
+    }
+    .actionRow {
+        grid-template-columns: 1fr;
+    }
+}
+
+.alignRight {
+    text-align: right;
+    font-size: 1.2rem;
+}
+
+.noteText {
+    font-size: 0.9rem;
+    color: #57534e;
+}
+
+.inlineStyle {
+    margin-bottom: 0.5rem;
+    opacity: 0.5;
+    color: #57534e;
+}
+
+.inlineStyle2 {
+    padding: 3rem;
+    border: 2px dashed #d6d3d1;
+    border-radius: 8px;
+    text-align: center;
+    background: #fff;
+}
+
+.noteText2 {
+    color: #57534e;
+    margin-bottom: 1.5rem;
+}
+
+.flexRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #F9F7F2;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.inlineStyle3 {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.inlineStyle4 {
+    background: #1c1917;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.inlineStyle5 {
+    cursor: pointer;
+}
+
+.flexRow2 {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #2563eb;
+    display: flex;
+    padding: 2px;
+}
+
+.flexRow3 {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ef4444;
+    display: flex;
+    padding: 2px;
+}
+
+.inlineStyle6 {
+    font-size: 0.9rem;
+    color: #78716c;
+    text-align: center;
+    font-style: italic;
+}
+
+.inlineStyle7 {
+    width: 100%;
+    padding: 8px;
+    background: #f5f5f4;
+    border: 1px solid #d6d3d1;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: Inter;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.spacedTop {
+    margin-top: 2rem;
+}
+
+.inlineStyle8 {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.inlineStyle9 {
+    font-size: 0.9rem;
+}
+
+.inlineStyle10 {
+    text-transform: capitalize;
+}
+
+.inlineStyle11 {
+    margin-top: 1rem;
+    background: none;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.loadingScreen {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F9F7F2;
+    font-family: Merriweather, serif;
+}

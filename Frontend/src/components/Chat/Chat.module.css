@@ -1,0 +1,77 @@
+.chatContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: #fff;
+    padding: 1.5rem;
+    border: 1px solid #d6d3d1;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.inputArea {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.textArea {
+    flex: 1;
+    padding: 0.8rem;
+    border: 1px solid #d6d3d1;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    resize: vertical;
+    min-height: 60px;
+    font-size: 0.95rem;
+}
+
+.textArea:focus {
+    outline: none;
+    border-color: #1c1917;
+}
+
+.postList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.post {
+    border-bottom: 1px solid #f5f5f4;
+    padding-bottom: 1rem;
+}
+
+.postHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.author {
+    font-weight: 700;
+    color: #1c1917;
+}
+
+.date {
+    color: #57534e;
+    font-size: 0.8rem;
+}
+
+.content {
+    color: #1c1917;
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
+.inlineStyle {
+    width: 100px;
+}
+
+.noteText {
+    color: #666;
+    font-style: italic;
+}

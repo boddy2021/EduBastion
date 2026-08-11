@@ -1,0 +1,117 @@
+.container {
+    min-height: 100vh;
+    background-color: #F9F7F2;
+    font-family: 'Merriweather', serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.mainContent {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 3rem 2rem 6rem 2rem;
+    width: 100%;
+}
+
+.hero {
+    text-align: center;
+    padding: 3rem 0;
+    margin-bottom: 4rem;
+}
+
+.title {
+    font-size: 3rem;
+    color: #1c1917;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    font-weight: 900;
+}
+
+.highlight {
+    color: #1c1917;
+    background: linear-gradient(to top, #fde047 35%, transparent 35%);
+}
+
+.subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    color: #57534e;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ctaGroup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.secondaryLink {
+    font-family: 'Inter', sans-serif;
+    color: #57534e;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.secondaryLink:hover {
+    text-decoration: underline;
+    color: #1c1917;
+}
+
+.heroVisual {
+    margin-top: 3rem;
+}
+
+.abstractShape {
+    width: 100%;
+    max-width: 650px;
+    height: 300px;
+    background-color: #e7e5e4;
+    border: 2px solid #1c1917;
+    border-radius: 8px;
+    box-shadow: 4px 4px 0px 0px #1c1917;
+    margin: 0 auto;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.featureCard {
+    background: #fff;
+    border: 1px solid #d6d3d1;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: left;
+    transition: none;
+}
+
+.featureCard:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.featureCard h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: #1c1917;
+    font-family: 'Inter', sans-serif;
+}
+
+.featureCard p {
+    font-family: 'Inter', sans-serif;
+    color: #57534e;
+    line-height: 1.5;
+    font-size: 0.9rem;
+}
+
+.inlineStyle {
+    text-decoration: none;
+    width: fit-content;
+}

@@ -1,0 +1,156 @@
+.container {
+    min-height: 100vh;
+    background-color: #F9F7F2;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.mainContent {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 2rem;
+    width: 100%;
+}
+
+.card {
+    background: white;
+    border: 2px solid #d6d3d1;
+    border-radius: 8px;
+    padding: 2.5rem;
+    box-shadow: 6px 6px 0px 0px rgba(28, 25, 23, 0.1);
+}
+
+.header {
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid #e7e5e4;
+    padding-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.avatarLarge {
+    width: 80px;
+    height: 80px;
+    background-color: #1c1917;
+    color: #F9F7F2;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    font-family: 'Merriweather', serif;
+}
+
+.titleSection h1 {
+    font-family: 'Merriweather', serif;
+    font-size: 2rem;
+    color: #1c1917;
+    margin: 0 0 0.5rem 0;
+}
+
+.roleBadge {
+    background-color: #e7e5e4;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #57534e;
+}
+
+.infoGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.infoRow {
+    display: grid;
+    grid-template-columns: 150px 1fr 40px;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed #e7e5e4;
+}
+
+.infoRow:last-child {
+    border-bottom: none;
+}
+
+.label {
+    font-weight: 600;
+    color: #57534e;
+    font-size: 0.95rem;
+}
+
+.value {
+    color: #1c1917;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.input {
+    width: 100%;
+    max-width: 320px;
+    padding: 8px;
+    border: 1px solid #1c1917;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+}
+
+.editBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #a8a29e;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.editBtn:hover {
+    color: #1c1917;
+}
+
+.actionButtons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.saveBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #15803d;
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.cancelBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ef4444;
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.errorText {
+    color: #ef4444;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    grid-column: 2;
+}
+
+@media (max-width: 600px) {
+    .infoRow {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+    .editBtn {
+        justify-content: flex-start;
+    }
+}

@@ -1,0 +1,16 @@
+.git
+.github
+.venv
+venv
+__pycache__
+**/__pycache__
+*.pyc
+Frontend/node_modules
+Frontend/dist
+.env
+.env.*
+!.env.example
+uploaded_files
+tests
+docs
+*.md

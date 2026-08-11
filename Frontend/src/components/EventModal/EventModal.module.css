@@ -1,0 +1,207 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s;
+}
+
+.modal {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 450px;
+    border: 2px solid #1c1917;
+    box-shadow: 8px 8px 0 0 rgba(0,0,0,0.5);
+    position: relative;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #ef4444;
+}
+
+.title {
+    font-family: 'Merriweather', serif;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #1c1917;
+    margin-top: 0;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.fieldGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    color: #1c1917;
+}
+
+.selectInput, .textArea {
+    padding: 8px;
+    border: 2px solid #d6d3d1;
+    border-radius: 4px;
+    font-family: 'Inter';
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.textArea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.selectInput:focus, .textArea:focus {
+    border-color: #1c1917;
+    outline: none;
+}
+
+.badge {
+    display: inline-block;
+    background: #e7e5e4;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #1c1917;
+}
+
+.detailsGroup {
+    margin-bottom: 1.5rem;
+}
+
+.detailsGroup strong {
+    display: block;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: #57534e;
+    margin-bottom: 5px;
+}
+
+.detailsGroup p {
+    margin: 0;
+    color: #1c1917;
+    font-size: 1.05rem;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.eventItem {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #e7e5e4;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #fafaf9;
+}
+
+.eventItem:hover {
+    border-color: #1c1917;
+    transform: translateX(5px);
+}
+
+.eventDate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #F9F7F2;
+    padding: 4px 12px;
+    border-radius: 4px;
+    border: 1px solid #d6d3d1;
+}
+
+.day {
+    font-weight: 900;
+    font-size: 1.2rem;
+    color: #1c1917;
+}
+
+.month {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #78716c;
+}
+
+.eventContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.eventTitle {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 2px;
+    color: #1c1917;
+}
+
+.eventSub {
+    font-size: 0.85rem;
+    color: #78716c;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.spacedTop {
+    margin-top: 1rem;
+}
+
+.spacedBottom {
+    margin-bottom: 1rem;
+}
+
+.preWrap {
+    white-space: pre-wrap;
+}
+
+.inlineStyle {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.inlineStyle2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}

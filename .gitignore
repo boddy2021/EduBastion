@@ -1,0 +1,51 @@
+# Secrets — NEVER commit
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+dist/
+dist-ssr/
+.vite/
+*.local
+
+# Models / large artifacts
+*.pt
+*.pth
+*.onnx
+models/
+.cache/
+
+# Uploads & runtime data
+uploads/
+static/uploads/
+*.db
+*.sqlite3
+*.log
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# calibration samples contain real student answers
+scripts/samples/
+scripts/samples_short/
+scripts/archive/

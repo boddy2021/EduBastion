@@ -1,0 +1,37 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+.label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    color: #1c1917;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.input {
+    background-color: #ffffff;
+    border: 2px solid #d6d3d1;
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    color: #1c1917;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.input:focus {
+    border-color: #1c1917;
+    box-shadow: inset 2px 2px 0px 0px rgba(0,0,0,0.05);
+}
+
+.input::placeholder {
+    color: #a8a29e;
+    font-style: italic;
+}

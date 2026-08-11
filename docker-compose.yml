@@ -1,0 +1,68 @@
+services:
+  db:
+    # Matches the version the schema dump came from (pg_dump 18). Older majors
+    # reject settings the dump emits, e.g. transaction_timeout on 16.
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: edubastion
+    ports:
+      # 5433 on the host: 5432 is usually taken by a locally installed Postgres.
+      # The backend reaches the db over the compose network, not this mapping.
+      - "5433:5432"
+    volumes:
+      # 18+ expects the mount one level up; it stores data in a version-named
+      # subdirectory so pg_upgrade works across majors.
+      - pgdata:/var/lib/postgresql
+      - ./EduBastion_schema_of_PostgreSQL_db.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d edubastion"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    environment:
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@db:5432/edubastion
+      SECRET_KEY: ${SECRET_KEY:?set SECRET_KEY in your environment or .env}
+      CORS_ORIGINS: http://localhost:5173,http://127.0.0.1:5173
+      AI_DETECTOR_ENABLED: ${AI_DETECTOR_ENABLED:-true}
+      AI_DETECTOR_PRELOAD: ${AI_DETECTOR_PRELOAD:-true}
+      AI_DETECTOR_METHOD: ${AI_DETECTOR_METHOD:-classifier}
+      AI_CLASSIFIER_MODEL: ${AI_CLASSIFIER_MODEL:-Hello-SimpleAI/chatgpt-detector-roberta}
+      AI_CLASSIFIER_THRESHOLD: ${AI_CLASSIFIER_THRESHOLD:-0.90}
+      AI_DETECTOR_BINOCULARS_THRESHOLD: ${AI_DETECTOR_BINOCULARS_THRESHOLD:-0.9015}
+      PROCTORING_IMAGE_DIR: /app/proctoring_images
+      # cached across restarts by the models volume
+      HF_HOME: /models
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - uploads:/app/uploaded_files
+      - proctoring:/app/proctoring_images
+      - models:/models
+
+  frontend:
+    image: node:22-alpine
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./Frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
+  uploads:
+  proctoring:
+  models:

@@ -1,0 +1,26 @@
+.button {
+    background-color: #1c1917;
+    color: #F9F7F2;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.1s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.button:hover {
+    background-color: #292524;
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0px 0px #d6d3d1;
+}
+
+.button:active {
+    transform: translateY(0px);
+    box-shadow: none;
+}

@@ -1,0 +1,23 @@
+import React from 'react';
+import Icon from '../../components/UI/Icon';
+import usersIcon from '../../assets/icons/users.svg?raw';
+import fileTextIcon from '../../assets/icons/file-text.svg?raw';
+import barChartIcon from '../../assets/icons/bar-chart.svg?raw';
+import logInIcon from '../../assets/icons/log-in.svg?raw';
+import checkCircleIcon from '../../assets/icons/check-circle.svg?raw';
+import userIcon from '../../assets/icons/user.svg?raw';
+import checkSquareIcon from '../../assets/icons/check-square.svg?raw';
+import folderIcon from '../../assets/icons/folder.svg?raw';
+import editIcon from '../../assets/icons/edit.svg?raw';
+import xIcon from '../../assets/icons/x.svg?raw';
+
+export const IconClassroom = () => <Icon svg={usersIcon} size={26} />;
+export const IconQuiz = () => <Icon svg={fileTextIcon} size={26} />;
+export const IconGradebook = () => <Icon svg={barChartIcon} size={26} />;
+export const IconJoin = () => <Icon svg={logInIcon} size={26} />;
+export const IconGrades = () => <Icon svg={checkCircleIcon} size={26} />;
+export const IconProfile = () => <Icon svg={userIcon} size={26} />;
+export const IconTests = () => <Icon svg={checkSquareIcon} size={26} />;
+export const IconFolder = () => <Icon svg={folderIcon} size={22} />;
+export const IconEdit = () => <Icon svg={editIcon} size={16} />;
+export const IconX = () => <Icon svg={xIcon} size={16} />;
