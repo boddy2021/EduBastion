@@ -120,15 +120,11 @@ def get_student_quiz_view(db: Session, quiz_id: int):
 
 
 def should_run_ai_detection(quiz_record) -> bool:
-    """AI detection is part of proctoring: a quiz created without it must not
-    have its essay answers scanned."""
     settings = (quiz_record.quiz_data or {}).get("proctoring_settings") or {}
     return bool(quiz_record.enable_proctoring) and settings.get("ai_text", True)
 
 
 def evaluate_submission(db: Session, quiz_id: int, sub_data: submission_models.SubmissionCreate):
-    """Grade and persist. Only deterministic grading runs here -- AI detection
-    is slow and would hold the exam window open while the student waits."""
     quiz_record = db.query(models_db.Quiz).filter(
         models_db.Quiz.id == quiz_id).first()
     original_questions = quiz_record.quiz_data['questions']
@@ -185,8 +181,6 @@ def evaluate_submission(db: Session, quiz_id: int, sub_data: submission_models.S
 
 
 def analyze_submission_ai(submission_id: int) -> None:
-    """Scan essay answers after the response was sent. Own DB session, since
-    the request's is closed by now. Failures never touch the submission."""
     from ..Database.database import SessionLocal
 
     db = SessionLocal()
@@ -222,12 +216,10 @@ def analyze_submission_ai(submission_id: int) -> None:
             changed = True
 
         if changed:
-            # JSONB columns are mutated in place, so SQLAlchemy needs telling.
             submission.answers_json = answers
             flag_modified(submission, "answers_json")
             db.commit()
 
-            # Fold results into the proctoring session, written before this ran.
             from ..Services import proctoring_service
             proctoring_service.refresh_ai_findings(
                 db, submission.quiz_id, submission.student_id)
@@ -293,8 +285,6 @@ def get_submission_details(db: Session, submission_id: int):
             "user_answer": user_ans,
             "is_ai_generated": is_ai_gen,
             "ai_confidence": ai_conf,
-            # "ai" | "human" | "pending" | "not_analyzed".
-            # The professor must not read "not flagged" as "checked and clean".
             "ai_verdict": ai_verdict,
             "ai_score": ai_score,
             "ai_analysis_pending": ai_pending,

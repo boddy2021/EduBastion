@@ -23,7 +23,6 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s [%(name)s] %(message)s",
 )
 
-# These chatter on every model load and bury our own logs.
 for noisy in ("httpx", "httpcore", "urllib3", "filelock",
               "huggingface_hub.utils._http"):
     logging.getLogger(noisy).setLevel(logging.WARNING)

@@ -68,7 +68,6 @@ def create_new_proctoring_log(db: Session, data: proctoring_models.ProctoringSub
         models_db.QuizResult.student_id == data.student_id
     ).order_by(models_db.QuizResult.id.desc()).first()
 
-    # Often zero here: the scan is still running. refresh_ai_findings fixes it.
     ai_summary = summarize_ai_findings(
         quiz_result.answers_json if quiz_result else None)
     ai_frauds = ai_summary["ai_frauds"]
@@ -132,8 +131,6 @@ AI_FRAUD_PENALTY = 40
 
 
 def summarize_ai_findings(answers_json) -> dict:
-    """Only flagged answers contribute. Human verdicts carry a confidence too,
-    and counting that would report a confidently-human answer as suspicious."""
     ai_frauds = 0
     highest_ai_prob = 0.0
     pending = False
@@ -155,17 +152,12 @@ def summarize_ai_findings(answers_json) -> dict:
 
 
 def refresh_ai_findings(db: Session, quiz_id: int, student_id: int) -> None:
-    """Recompute AI findings once the background scan finishes.
-
-    Adjusts the trust score by the penalty difference, so browser-derived
-    penalties (tab switches, time away, face warnings) survive untouched."""
     session = db.query(models_db.ProctoringSession).filter(
         models_db.ProctoringSession.quiz_id == quiz_id,
         models_db.ProctoringSession.student_id == student_id
     ).order_by(models_db.ProctoringSession.id.desc()).first()
 
     if not session:
-        # Log not posted yet; when it is, it reads the updated answers.
         return
 
     quiz_result = db.query(models_db.QuizResult).filter(

@@ -1,23 +1,15 @@
-"""Tests for when AI text detection is allowed to run at all.
-
-These guard two rules that are easy to break and expensive to get wrong:
-
-1. A quiz created without proctoring must never have its essay answers scanned.
-   Running detection anyway is both surprising to the professor and an
-   unnecessary processing of student work.
-2. Detection must never run on the request path when it is switched off, since
-   loading the model pair costs ~2.5 GB and several minutes on first use.
-"""
+import importlib.util
 
 import pytest
 
+needs_ml_stack = pytest.mark.skipif(
+    importlib.util.find_spec("torch") is None
+    or importlib.util.find_spec("transformers") is None,
+    reason="torch and transformers are not installed",
+)
+
 
 def should_run_ai_detection(quiz_record) -> bool:
-    """Mirror of the gate in quiz_service.evaluate_submission.
-
-    Kept here as a spec: if this logic changes in the service, these tests
-    fail and force the decision to be made explicitly.
-    """
     settings = (quiz_record.get("quiz_data") or {}).get("proctoring_settings") or {}
     return bool(quiz_record.get("enable_proctoring")) and settings.get("ai_text", True)
 
@@ -57,10 +49,8 @@ def test_null_proctoring_settings_does_not_crash():
     assert should_run_ai_detection(record) is True
 
 
-# --- The master switch ------------------------------------------------------
-
+@needs_ml_stack
 def test_disabled_detector_returns_a_neutral_result_without_loading_models():
-    """conftest sets AI_DETECTOR_ENABLED=false, so this must not touch torch."""
     from App.Services.ai_detector_service import check_ai_probability
 
     result = check_ai_probability("A long essay answer written by a student. " * 5)
@@ -68,6 +58,7 @@ def test_disabled_detector_returns_a_neutral_result_without_loading_models():
     assert result == {"is_ai": False, "confidence": 0.0, "score": None}
 
 
+@needs_ml_stack
 @pytest.mark.parametrize("text", ["", "   ", None, "too short"])
 def test_short_or_empty_answers_are_never_flagged(text):
     from App.Services.ai_detector_service import check_ai_probability

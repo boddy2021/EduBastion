@@ -1,11 +1,3 @@
-"""Unit tests for the automatic grading rules.
-
-These cover ``grade_question``, the pure function that decides whether a single
-student answer is correct and how many points it earns. It has no database or
-network dependency, which is exactly why the grading rules were extracted into
-it.
-"""
-
 import pytest
 
 from App.Core.grading import grade_question
@@ -14,8 +6,6 @@ from App.Core.grading import grade_question
 def question(q_type, answer, points=1.0):
     return {"type": q_type, "answer": answer, "points": points}
 
-
-# --- Multiple choice --------------------------------------------------------
 
 def test_multiple_choice_correct_answer_earns_full_points():
     result = grade_question(question("MultipleChoiceQuestion", "B", 2.5), "B")
@@ -34,8 +24,6 @@ def test_multiple_choice_compares_as_string_so_int_and_str_match():
     assert result["is_correct"] is True
 
 
-# --- True / false -----------------------------------------------------------
-
 @pytest.mark.parametrize("student_answer", ["true", "True", "TRUE"])
 def test_true_false_is_case_insensitive(student_answer):
     result = grade_question(question("TrueFalseQuestion", "True"), student_answer)
@@ -47,8 +35,6 @@ def test_true_false_wrong_answer():
     assert result["is_correct"] is False
 
 
-# --- Checkbox (multiple correct answers) ------------------------------------
-
 def test_checkbox_order_does_not_matter():
     result = grade_question(
         question("CheckBoxQuestion", ["A", "B", "C"], 3.0), ["C", "A", "B"]
@@ -58,7 +44,6 @@ def test_checkbox_order_does_not_matter():
 
 
 def test_checkbox_partial_selection_is_not_correct():
-    """All-or-nothing: selecting a subset earns zero, not partial credit."""
     result = grade_question(question("CheckBoxQuestion", ["A", "B", "C"]), ["A", "B"])
     assert result["is_correct"] is False
     assert result["points"] == 0.0
@@ -76,8 +61,6 @@ def test_checkbox_non_list_answer_is_handled_gracefully():
     assert result["is_correct"] is False
 
 
-# --- Short answer -----------------------------------------------------------
-
 def test_short_answer_ignores_case_and_surrounding_whitespace():
     result = grade_question(question("ShortAnswerQuestion", "Cluj-Napoca"), "  cluj-napoca ")
     assert result["is_correct"] is True
@@ -93,8 +76,6 @@ def test_short_answer_none_is_not_correct():
     assert result["is_correct"] is False
 
 
-# --- Long answer (manual review) --------------------------------------------
-
 def test_long_answer_is_flagged_for_manual_review_and_auto_awards_nothing():
     result = grade_question(
         question("LongAnswerQuestion", None, 5.0), "A long essay answer."
@@ -102,8 +83,6 @@ def test_long_answer_is_flagged_for_manual_review_and_auto_awards_nothing():
     assert result["manual_review"] is True
     assert result["points"] == 0.0
 
-
-# --- Edge cases -------------------------------------------------------------
 
 def test_unknown_question_type_earns_nothing_instead_of_crashing():
     result = grade_question(question("SomeFutureQuestionType", "x"), "x")

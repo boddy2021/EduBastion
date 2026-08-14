@@ -1,13 +1,3 @@
-"""AI text detection with a supervised classifier.
-
-Runs locally rather than calling a detection API: exam answers are personal
-data and shouldn't leave the institution.
-
-Long answers exceed the 512-token window, so they're scored in chunks and
-averaged. Averaging rather than max, otherwise a long answer gets flagged
-just for being long.
-"""
-
 import logging
 import threading
 
@@ -74,7 +64,6 @@ def warm_up_async() -> None:
 
 
 def _ai_label_index() -> int:
-    """Read from config, so swapping checkpoints can't silently invert verdicts."""
     for idx, name in _model.config.id2label.items():
         if any(k in str(name).lower()
                for k in ("chatgpt", "ai", "machine", "generated", "fake")):
@@ -114,9 +103,6 @@ def ai_probability(text: str) -> float:
 
 
 def check(text: str) -> dict:
-    """Three verdicts: between 0.5 and the threshold the model leans machine
-    but not enough to raise to a professor, and saying so beats rounding it
-    down to "human"."""
     p = ai_probability(text)
 
     if p >= AI_CLASSIFIER_THRESHOLD:

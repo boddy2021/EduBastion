@@ -64,7 +64,7 @@ export function useProctoring({ quiz, quizId, userId, isExamActive, isExamActive
             }
 
             if (isProctoringEnabled) {
-                const blockCtrl = (e.ctrlKey || e.metaKey) && ['r', 'p', 'a', 'f', 't', 'n', 'w'].includes(e.key.toLowerCase());
+                const blockCtrl = (e.ctrlKey || e.metaKey) && ['r', 'p', 'a', 'f', 't', 'n', 'w', 'c', 'v'].includes(e.key.toLowerCase());
                 if (isFunctionKey || blockCtrl) e.preventDefault();
             }
         };
@@ -78,7 +78,7 @@ export function useProctoring({ quiz, quizId, userId, isExamActive, isExamActive
 
         const handleCopyPaste = (e) => {
             if (isExamActiveRef.current && isProctoringEnabled) {
-               // e.preventDefault();
+                e.preventDefault();
             }
         };
 

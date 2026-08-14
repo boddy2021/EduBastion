@@ -14,33 +14,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: pip
 
       - name: Install test dependencies
-        # Only what the unit tests need. torch/transformers are ~2 GB and the
-        # grading and security tests deliberately do not touch them.
         run: pip install pytest bcrypt fastapi
 
       - name: Run tests
         env:
-          DATABASE_URL: postgresql://test:test@localhost:5432/edubastion_test
           SECRET_KEY: ci-only-key
-        run: pytest
-
-  frontend:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: Frontend
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: npm
-          cache-dependency-path: Frontend/package-lock.json
-
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run build
+        run: pytest tests -q

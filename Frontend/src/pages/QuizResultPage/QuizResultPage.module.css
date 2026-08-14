@@ -130,35 +130,30 @@
     font-family: 'Inter', sans-serif;
 }
 
-/* Flagged as machine-generated. */
 .aiAlertBox[data-verdict='ai'] {
     background-color: #fee2e2;
     border-left-color: #ef4444;
     color: #991b1b;
 }
 
-/* Checked, and it reads as human-written. */
 .aiAlertBox[data-verdict='human'] {
     background-color: #dcfce7;
     border-left-color: #22c55e;
     color: #166534;
 }
 
-/* Leans machine-generated, but below the flag threshold. */
 .aiAlertBox[data-verdict='uncertain'] {
     background-color: #ffedd5;
     border-left-color: #f97316;
     color: #9a3412;
 }
 
-/* Background scan still running. */
 .aiAlertBox[data-verdict='pending'] {
     background-color: #fef3c7;
     border-left-color: #f59e0b;
     color: #92400e;
 }
 
-/* Never checked — deliberately neutral, so it is not mistaken for "clean". */
 .aiAlertBox[data-verdict='none'] {
     background-color: #f1f5f9;
     border-left-color: #94a3b8;

@@ -118,8 +118,6 @@ def submit_quiz(quiz_id: int, payload: dict, background_tasks: BackgroundTasks, 
     result = qs.evaluate_submission(
         db=db, quiz_id=quiz_id, sub_data=sub_data)
 
-    # Grading is done and persisted; the student is free to leave. AI text
-    # detection takes tens of seconds and runs after the response is sent.
     if result["needs_ai_analysis"]:
         background_tasks.add_task(
             qs.analyze_submission_ai, result["submission_id"])

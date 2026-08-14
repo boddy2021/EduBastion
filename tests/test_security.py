@@ -1,10 +1,3 @@
-"""Unit tests for password hashing and JWT session tokens.
-
-The JWT implementation is hand-written (HMAC-SHA256 over base64url segments),
-so these tests exist to prove it actually rejects the attacks it is supposed to
-reject: forged signatures, tampered payloads and expired sessions.
-"""
-
 import base64
 import json
 import time
@@ -13,8 +6,6 @@ import pytest
 
 from App import security
 
-
-# --- Password hashing -------------------------------------------------------
 
 def test_password_hash_is_not_the_plaintext():
     hashed = security.get_password_hash("correct horse battery staple")
@@ -33,7 +24,6 @@ def test_wrong_password_does_not_verify():
 
 
 def test_same_password_hashes_differently_each_time():
-    """bcrypt salts every hash, so two hashes of the same password differ."""
     first = security.get_password_hash("same-password")
     second = security.get_password_hash("same-password")
     assert first != second
@@ -46,13 +36,10 @@ def test_verify_password_against_garbage_hash_returns_false():
 
 
 def test_passwords_longer_than_bcrypt_limit_are_handled():
-    """bcrypt truncates at 72 bytes; make sure that does not raise."""
     long_password = "a" * 200
     hashed = security.get_password_hash(long_password)
     assert security.verify_password(long_password, hashed) is True
 
-
-# --- JWT: happy path --------------------------------------------------------
 
 def test_token_roundtrip_preserves_claims():
     token = security.create_access_token({"user_id": 42, "role": "professor"})
@@ -72,8 +59,6 @@ def test_token_carries_an_expiry_claim():
     assert payload["exp"] > time.time()
 
 
-# --- JWT: rejection paths (the ones that matter) ----------------------------
-
 def test_expired_token_is_rejected():
     token = security.create_access_token({"user_id": 1}, expires_minutes=-1)
     with pytest.raises(ValueError):
@@ -89,7 +74,6 @@ def test_token_with_forged_signature_is_rejected():
 
 
 def test_privilege_escalation_by_editing_the_payload_is_rejected():
-    """A student rewriting their role to 'professor' must not pass verification."""
     token = security.create_access_token({"user_id": 7, "role": "student"})
     header, _, signature = token.split(".")
 

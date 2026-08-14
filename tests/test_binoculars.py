@@ -1,9 +1,3 @@
-"""Unit tests for the Binoculars scoring maths and confidence mapping.
-
-These cover ``App/Core/binoculars.py``, which is kept free of model loading so
-the logic can be tested without downloading ~2.5 GB of weights.
-"""
-
 import pytest
 
 from App.Core.binoculars import (
@@ -14,14 +8,11 @@ from App.Core.binoculars import (
 )
 
 
-# --- The ratio --------------------------------------------------------------
-
 def test_score_is_the_ratio_of_the_two_cross_entropies():
     assert binoculars_score(2.0, 4.0) == 0.5
 
 
 def test_machine_like_text_scores_lower_than_human_like_text():
-    """Same cross-perplexity, lower observer surprise -> lower score."""
     machine_like = binoculars_score(1.0, 3.0)
     human_like = binoculars_score(2.5, 3.0)
     assert machine_like < human_like
@@ -37,8 +28,6 @@ def test_negative_cross_perplexity_is_rejected():
         binoculars_score(2.0, -1.0)
 
 
-# --- Threshold behaviour ----------------------------------------------------
-
 def test_score_above_threshold_is_reported_as_human():
     result = score_to_result(1.2, threshold=0.9)
     assert result["is_ai"] is False
@@ -46,16 +35,12 @@ def test_score_above_threshold_is_reported_as_human():
 
 
 def test_score_exactly_at_threshold_is_not_flagged():
-    """The boundary resolves in the student's favour."""
     result = score_to_result(0.9, threshold=0.9)
     assert result["is_ai"] is False
     assert result["verdict"] == "human"
 
 
-# --- Both verdicts carry a confidence ---------------------------------------
-
 def test_human_verdict_also_reports_a_confidence():
-    """'Not flagged' and 'measured as human' must not look the same."""
     result = score_to_result(1.3, threshold=0.9)
     assert result["confidence"] >= MIN_CONFIDENCE
 
@@ -89,10 +74,7 @@ def test_score_below_threshold_is_flagged():
     assert result["confidence"] >= MIN_CONFIDENCE
 
 
-# --- Confidence mapping -----------------------------------------------------
-
 def test_confidence_never_drops_below_the_floor():
-    """A flag that barely crosses the line must not read as near-certainty."""
     result = score_to_result(0.8999, threshold=0.9)
     assert result["confidence"] >= MIN_CONFIDENCE
 
@@ -109,7 +91,6 @@ def test_confidence_increases_as_score_falls_further_below_threshold():
 
 
 def test_raw_score_is_returned_for_auditability():
-    """The professor sees the number, not just the verdict."""
     result = score_to_result(0.4242, threshold=0.9)
     assert result["score"] == 0.4242
 

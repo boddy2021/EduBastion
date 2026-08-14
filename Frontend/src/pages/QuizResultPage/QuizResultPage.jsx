@@ -4,14 +4,6 @@ import Navbar from '../../components/Navbar/Navbar';
 import Button from '../../components/UI/Button';
 import styles from './QuizResultPage.module.css';
 
-/**
- * AI authorship verdict for a single essay answer.
- *
- * Shows four distinct states rather than only flagging AI. "We have not
- * checked this" and "we checked it and it reads as human-written" are
- * different claims, and a professor deciding on academic misconduct has to be
- * able to tell them apart. Confidence is always shown, in both directions.
- */
 function AiVerdictBox({ item, fallbackIsAi, fallbackConf }) {
     const verdict = item.ai_verdict || (fallbackIsAi ? 'ai' : 'not_analyzed');
     const confidence = item.ai_confidence ?? fallbackConf ?? 0;
@@ -93,7 +85,7 @@ function QuizResultPage() {
 
     const [result, setResult] = useState(null);
     const [newScore, setNewScore] = useState(0);
-    const [showDetailedLogs, setShowDetailedLogs] = useState(false); 
+    const [showDetailedLogs, setShowDetailedLogs] = useState(false);
 
     useEffect(() => {
         fetch(`http://127.0.0.1:8000/api/quizzes/submissions/${submissionId}/details`)
@@ -132,8 +124,8 @@ function QuizResultPage() {
         const attachmentMatch = str.match(/\[ATTACHMENT: (.*?)\]/);
 
         if (attachmentMatch) {
-            const imageUrl = attachmentMatch[1]; 
-            const textOnly = str.replace(attachmentMatch[0], "").trim(); 
+            const imageUrl = attachmentMatch[1];
+            const textOnly = str.replace(attachmentMatch[0], "").trim();
             return { text: textOnly, image: imageUrl, isAi, aiConf };
         }
 
@@ -212,7 +204,7 @@ function QuizResultPage() {
                                             <div className={styles.logSection}>
                                                 <h4> Voice & Audio Analysis</h4>
                                                 <div className={styles.transcriptBox}>
-                                                    <strong>Transcript:</strong> 
+                                                    <strong>Transcript:</strong>
                                                     <p>"{report.detailed_logs?.voice_analysis?.transcript || "No audio captured."}"</p>
                                                 </div>
                                                 {report.detailed_logs?.voice_analysis?.fraud_reasons?.map((reason, i) => (
@@ -246,10 +238,10 @@ function QuizResultPage() {
                                 <h3 className={styles.inlineStyle4}>Teacher Grading Area</h3>
                                 <div className={styles.flexRow}>
                                     <label className={styles.inlineStyle5}>Override Final Score (0-10): </label>
-                                    <input 
-                                        type="number" 
-                                        value={newScore} 
-                                        onChange={(e) => setNewScore(e.target.value)} 
+                                    <input
+                                        type="number"
+                                        value={newScore}
+                                        onChange={(e) => setNewScore(e.target.value)}
                                         className={styles.gradingInput}
                                     />
                                     <button onClick={handleUpdateScore} className={styles.gradingBtn}>Save Grade</button>
@@ -268,7 +260,7 @@ function QuizResultPage() {
                             let pointsDisplay = "";
                             let pointsClass = styles.pointsNeutral;
 
-                            const maxPoints = Number(item.points) || 0; 
+                            const maxPoints = Number(item.points) || 0;
 
                             if (item.manual_review) {
                                 pointsDisplay = `[ Max: ${maxPoints} Points ]`;

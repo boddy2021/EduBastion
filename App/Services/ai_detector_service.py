@@ -1,12 +1,3 @@
-"""Zero-shot AI text detection, Binoculars method (Hans et al., ICML 2024).
-
-Kept as an alternative backend to the supervised classifier. Needs a large
-model pair to be competitive; the paper uses Falcon-7B (~28GB).
-
-Every failure path returns "human" -- a false accusation costs more than a
-missed detection.
-"""
-
 import logging
 import threading
 
@@ -36,15 +27,12 @@ _load_started = False
 
 
 def is_ready() -> bool:
-    """True once the configured backend is loaded and can score immediately."""
     if AI_DETECTOR_METHOD == "classifier":
         return ai_classifier_service.is_ready()
     return _observer is not None
 
 
 def warm_up_async() -> None:
-    """Load in the background. Blocking the request path makes a student wait
-    mid-exam; blocking startup takes the whole platform down until it finishes."""
     global _load_started
 
     if AI_DETECTOR_METHOD == "classifier":
@@ -66,7 +54,6 @@ def warm_up_async() -> None:
 
 
 def _load() -> None:
-    """Load both models on first use. Thread-safe, idempotent."""
     global _observer, _performer, _tokenizer
 
     if _observer is not None:
@@ -101,8 +88,6 @@ def _load() -> None:
         )
         logger.info("[2/2] performer ready.")
 
-        # Binoculars requires both models to share a tokenizer; if the
-        # vocabularies differ the cross-perplexity term is meaningless.
         if observer.config.vocab_size != performer.config.vocab_size:
             raise RuntimeError(
                 "Observer and performer models must share a tokenizer "
@@ -120,7 +105,6 @@ def _load() -> None:
 
 
 def _mean_cross_entropy(logits: torch.Tensor, labels: torch.Tensor) -> float:
-    """Mean per-token cross-entropy of ``logits`` against the actual tokens."""
     shifted_logits = logits[..., :-1, :].contiguous()
     shifted_labels = labels[..., 1:].contiguous()
 
@@ -137,10 +121,6 @@ def _mean_cross_perplexity(
     performer_logits: torch.Tensor,
     chunk_size: int = 32,
 ) -> float:
-    """Cross-entropy between the two models' next-token distributions.
-
-    Chunked: doing the full vocab softmax for every position at once costs
-    ~1.5GB of transient tensors and pushes a laptop into swap."""
     observer = observer_logits[..., :-1, :]
     performer = performer_logits[..., :-1, :]
 
@@ -163,7 +143,6 @@ def _mean_cross_perplexity(
 
 
 def compute_binoculars_score(text: str) -> float:
-    """Return the raw Binoculars score for ``text``. Lower means more machine-like."""
     _load()
 
     encoding = _tokenizer(
@@ -184,20 +163,12 @@ def compute_binoculars_score(text: str) -> float:
         performer_logits = _performer(input_ids).logits
         cross_ppl = _mean_cross_perplexity(observer_logits, performer_logits)
 
-    # ~300MB each in float32; free them now, not at collection time.
     del observer_logits, performer_logits
 
     return binoculars_score(observer_ce, cross_ppl)
 
 
 def check_ai_probability(text: str) -> dict:
-    """Score how likely ``text`` is machine-generated.
-
-    Returns ``{"is_ai": bool, "confidence": float, "score": float | None}``
-    with ``confidence`` in the 0-100 range. Never raises: on any failure the
-    answer is treated as human-written, because a false accusation costs far
-    more than a missed detection.
-    """
     empty_result = {
         "verdict": "not_analyzed",
         "is_ai": False,
@@ -211,9 +182,6 @@ def check_ai_probability(text: str) -> dict:
     if not text or len(text.strip()) < AI_DETECTOR_MIN_TEXT_LENGTH:
         return empty_result
 
-    # Never block a submission on a model download. If the background warm-up
-    # has not finished, the answer goes through unscanned — a missed detection
-    # is recoverable, a student unable to submit their exam is not.
     if not is_ready():
         warm_up_async()
         logger.warning(

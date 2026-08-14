@@ -1,19 +1,13 @@
 services:
   db:
-    # Matches the version the schema dump came from (pg_dump 18). Older majors
-    # reject settings the dump emits, e.g. transaction_timeout on 16.
     image: postgres:18-alpine
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       POSTGRES_DB: edubastion
     ports:
-      # 5433 on the host: 5432 is usually taken by a locally installed Postgres.
-      # The backend reaches the db over the compose network, not this mapping.
       - "5433:5432"
     volumes:
-      # 18+ expects the mount one level up; it stores data in a version-named
-      # subdirectory so pg_upgrade works across majors.
       - pgdata:/var/lib/postgresql
       - ./EduBastion_schema_of_PostgreSQL_db.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
     healthcheck:
@@ -37,7 +31,6 @@ services:
       AI_CLASSIFIER_THRESHOLD: ${AI_CLASSIFIER_THRESHOLD:-0.90}
       AI_DETECTOR_BINOCULARS_THRESHOLD: ${AI_DETECTOR_BINOCULARS_THRESHOLD:-0.9015}
       PROCTORING_IMAGE_DIR: /app/proctoring_images
-      # cached across restarts by the models volume
       HF_HOME: /models
     ports:
       - "8000:8000"

@@ -1,9 +1,3 @@
-"""Test configuration.
-
-Provides a throwaway environment so the suite runs without a real database,
-a real .env file, or a network connection.
-"""
-
 import os
 import sys
 from pathlib import Path
@@ -16,6 +10,5 @@ os.environ.setdefault(
 )
 os.environ.setdefault("SECRET_KEY", "test-only-key-not-used-in-production")
 
-# Never download ~2.5 GB of models during a test run.
 os.environ.setdefault("AI_DETECTOR_ENABLED", "false")
 os.environ.setdefault("AI_DETECTOR_PRELOAD", "false")

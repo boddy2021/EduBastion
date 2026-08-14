@@ -1,18 +1,3 @@
-"""Measure the detection threshold on local samples.
-
-Thresholds are model-specific and don't transfer between model pairs. Reads
-samples from a directory of .txt files, a file with one sample per line, or a
-labelled CSV.
-
-    python scripts/calibrate_detector.py --human samples/human --ai samples/ai
-    python scripts/calibrate_detector.py --csv data.csv --text-col text \
-        --label-col generated --ai-label 1
-    ... --report-only          # length stats only, no scoring
-
-CSV mode matches the classes on length first. Without that, a detector can
-separate them by length alone.
-"""
-
 import argparse
 import csv
 import random
@@ -23,7 +8,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 csv.field_size_limit(10 ** 7)
 
-from App import config  # noqa: E402
+from App import config
 
 
 def load_path(path: Path) -> list[str]:
@@ -148,8 +133,6 @@ def main():
     if args.report_only:
         return
 
-    # classifier gives P(AI): high means machine.
-    # binoculars gives a ratio: low means machine.
     if config.AI_DETECTOR_METHOD == "classifier":
         from App.Services.ai_classifier_service import ai_probability as scorer
         flag_below = False

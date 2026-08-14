@@ -9,8 +9,6 @@ WORKDIR /app
 
 COPY requirements.txt .
 
-# CPU-only torch. The default wheel pulls the whole CUDA stack (nvidia-*,
-# triton) which is several GB of GPU libraries we never use here.
 RUN pip install --no-cache-dir \
         --index-url https://download.pytorch.org/whl/cpu \
         torch==2.6.0
